@@ -10,9 +10,13 @@ const Logout = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
       });
       const data = await res.json();
-      history.push('/login');
+      if (res.status === 200) {
+        history.push('/login');
+      }
+
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -20,7 +24,7 @@ const Logout = () => {
   };
   useEffect(() => {
     calllogoutpage();
-    //for esline  disable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

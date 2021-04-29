@@ -59,14 +59,16 @@ router.post('/login', async (req, res) => {
 ///about
 router.get('/about', authenticate, (req, res) => {
   console.log('hello');
-  res.status(200).send(req.rootUser);
+  res.status(200).json(req.rootUser);
 });
 
 ///for logout
-router.get('/logout', (req, res) => {
+router.get('/logout', authenticate, async (req, res) => {
   console.log('logout');
+  req.rootUser.tokens = [];
 
-  res.status(202).clearCookie('jwttoken').send('cookie cleared');
+  res.status(200).clearCookie('jwttoken').json('cookie cleared');
+  await req.rootUser.save();
 });
 
 module.exports = router;
