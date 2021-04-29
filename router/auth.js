@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
       const token = await userlogin.generateAuthToken();
       console.log(token);
       res.cookie('jwttoken', token, {
-        expires: new Date(Date.now() + 30 * 1000),
+        expires: new Date(Date.now() + 30 * 60 * 1000),
         httpOnly: true,
       });
       // console.log(userlogin);
@@ -64,11 +64,14 @@ router.get('/about', authenticate, (req, res) => {
 
 ///for logout
 router.get('/logout', authenticate, async (req, res) => {
-  console.log('logout');
-  req.rootUser.tokens = [];
-
-  res.status(200).clearCookie('jwttoken').json('cookie cleared');
-  await req.rootUser.save();
+  try {
+    console.log(req.rootUser);
+    req.rootUser.tokens = [];
+    await req.rootUser.save();
+    res.status(200).clearCookie('jwttoken').json('cookie cleared');
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
