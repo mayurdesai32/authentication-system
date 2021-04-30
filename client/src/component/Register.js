@@ -36,6 +36,8 @@ const Register = () => {
     const data = await res.json();
     if (data.status === 422 || !data) {
       window.alert('invalid reg');
+    } else if (data.status === 400 || !data) {
+      window.alert('please filled all field');
     } else {
       window.alert('registration ');
       history.push('/login');
