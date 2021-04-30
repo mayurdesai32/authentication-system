@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import Context from './context/Context';
 const Login = () => {
+  const { login } = useContext(Context);
   const history = useHistory();
   const [user, setuser] = useState({
     email: '',
@@ -32,6 +33,7 @@ const Login = () => {
     if (data.status === 400 || !data) {
       window.alert('plz fill all field');
     } else if (data.message === 'valid email') {
+      login(true);
       window.alert('login sucessfull ');
       history.push('/');
     } else {
@@ -47,7 +49,7 @@ const Login = () => {
           </h1>
           <div className='title-underline bg-primary'></div>
           <p className='mt-2 text-capitalize text-muted'>
-            Lorem ipsum dolor sit amet.
+            please fill the form for login.
           </p>
         </div>
       </div>

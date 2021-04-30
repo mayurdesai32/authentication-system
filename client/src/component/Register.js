@@ -50,7 +50,7 @@ const Register = () => {
           </h1>
           <div className='title-underline bg-primary'></div>
           <p className='mt-2 text-capitalize text-muted'>
-            Lorem ipsum dolor sit amet.
+            please fill the form for Register.
           </p>
         </div>
       </div>

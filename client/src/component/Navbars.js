@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import Context from './context/Context';
 const Navbars = () => {
+  const { state } = useContext(Context);
+  const Rendermenu = () => {
+    if (!state) {
+      return (
+        <>
+          <li className='nav-item'>
+            <NavLink className='nav-link' to='/register'>
+              Register
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link' to='/login'>
+              Login
+            </NavLink>
+          </li>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <li className='nav-item'>
+            <NavLink className='nav-link' to='/logout'>
+              Logout
+            </NavLink>
+          </li>
+        </>
+      );
+    }
+  };
   return (
     <>
       <nav className=' navbar navbar-expand-lg navbar-light bg-light'>
@@ -31,22 +61,7 @@ const Navbars = () => {
                 About
               </NavLink>
             </li>
-
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/register'>
-                Register
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/login'>
-                Login
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/logout'>
-                Logout
-              </NavLink>
-            </li>
+            <Rendermenu />
           </ul>
         </div>
       </nav>

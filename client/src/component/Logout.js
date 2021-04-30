@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Context from './context/Context';
 const Logout = () => {
+  const { login } = useContext(Context);
   const history = useHistory();
   const calllogoutpage = async () => {
     try {
@@ -15,6 +17,7 @@ const Logout = () => {
       const data = await res.json();
       if (res.status === 200) {
         history.push('/login');
+        login(false);
       }
 
       console.log(data);
