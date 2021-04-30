@@ -34,9 +34,10 @@ const Register = () => {
       }),
     });
     const data = await res.json();
-    if (data.status === 422 || !data) {
+    console.log(data);
+    if (res.status === 422 || !res) {
       window.alert('invalid reg');
-    } else if (data.status === 400 || !data) {
+    } else if (res.status === 400) {
       window.alert('please filled all field');
     } else {
       window.alert('registration ');

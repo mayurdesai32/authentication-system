@@ -30,9 +30,9 @@ const Login = () => {
     });
     const data = await res.json();
     console.log(data);
-    if (data.status === 400 || !data) {
+    if (res.status === 400 || !res) {
       window.alert('plz fill all field');
-    } else if (data.message === 'valid email') {
+    } else if (res.status === 200) {
       login(true);
       window.alert('login sucessfull ');
       history.push('/');
