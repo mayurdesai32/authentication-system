@@ -22,7 +22,7 @@ const Logout = () => {
 
       console.log(data);
     } catch (error) {
-      console.log(error);
+      console.log('first login');
     }
   };
   useEffect(() => {

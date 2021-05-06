@@ -5,7 +5,7 @@ const States = (props) => {
   const initialState = false;
   const [state, dispatch] = useReducer(Reducers, initialState, () => {
     const local = localStorage.getItem('USER');
-    return local ? JSON.parse(local) : [];
+    return local ? JSON.parse(local) : false;
   });
 
   const login = (data) => {

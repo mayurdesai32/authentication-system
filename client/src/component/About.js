@@ -16,11 +16,11 @@ const About = () => {
       const data = await res.json();
 
       if (res.status === 200) {
-        console.log(data);
+        // console.log(data);
         setData(data);
       }
     } catch (error) {
-      console.log(error);
+      console.log('no login detail found');
       history.push('/login');
     }
   };
