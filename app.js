@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const mongoose = require('mongoose');
+const path = require('path');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
 const express = require('express');
@@ -23,8 +24,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     res.send('api running');
   });
-};
-
+}
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
