@@ -29,25 +29,36 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
     if (!email || !password) {
+      console.log(email, password);
       res.status(400).json({ error: 'plz fill all field ' });
     } else {
       const userlogin = await User.findOne({ email: email });
-      if (userlogin) {
-        const token = await userlogin.generateAuthToken();
-        console.log(token);
-        res.cookie('jwttoken', token, {
+
+      if (!userlogin) {
+        // throw newerror('user not found');
+        return res.status(401).json({ err: 'user not found' });
+      }
+      console.log(userlogin);
+      console.log(password);
+      console.log('login');
+      console.log(userlogin.password);
+      const ismatch = await bcrypt.compare(password, userlogin.password);
+      if (!ismatch) res.status(401).json({ err: 'invalid email or password' });
+
+      console.log('token');
+      const token = await userlogin.generateAuthToken();
+      console.log(token);
+      res
+        .status(200)
+        .cookie('jwttoken', token, {
           expires: new Date(Date.now() + 30 * 60 * 1000),
           httpOnly: true,
-        });
-        // console.log(userlogin);
-        const ismatch = await bcrypt.compare(password, userlogin.password);
-        if (ismatch) {
-          res.status(200).json({ message: 'valid email' });
-        }
-      } else {
-        res.status(401).json({ err: 'invaid email' });
-      }
+        })
+        .json({ message: 'login successfully' });
+
+      // console.log(userlogin);
     }
   } catch (error) {
     console.log(error);

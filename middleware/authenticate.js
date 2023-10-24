@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const authenticate = async (req, res, next) => {
   try {
     const token = req.cookies.jwttoken;
+    if (!token) {
+      throw new Error('token not found');
+    }
     const verifytoken = jwt.verify(token, process.env.SECRET_KEY);
     const rootUser = await User.findOne({
       _id: verifytoken._id,
@@ -18,8 +21,8 @@ const authenticate = async (req, res, next) => {
     req.userID = rootUser._id;
     next();
   } catch (err) {
-    res.status(401).send('unauthorized token');
-    console.log(err);
+    return res.status(401).send('unauthorized token');
+    // console.log(err);
   }
 };
 module.exports = authenticate;
